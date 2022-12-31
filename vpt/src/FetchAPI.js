@@ -20,22 +20,6 @@ async function ISBNApi(isbn) {
 }
 
 async function getThumbnailURL(isbn) {
-  // let isbnID = "ISBN:" + isbn
-  // let thumbnail_url = ""
-  // fetch("https://covers.openlibrary.org/b/isbn/" + isbn + "-S.jpg")
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     console.log(isbnID, res[isbnID]["thumbnail_url"])
-  //     console.log(res[isbnID])
-  //     if ("thumbnail_url" in res[isbnID]) {
-  //       thumbnail_url = res[isbnID]["thumbnail_url"]
-  //       console.log(res[isbnID]["thumbnail_url"])
-  //       callback(thumbnail_url)
-  //     } else {
-  //       thumbnail_url = "/testImg.jpg"
-  //       callback(thumbnail_url)
-  //     }
-  //   })
   return "https://covers.openlibrary.org/b/isbn/" + isbn + "-L.jpg"
 }
 
@@ -211,6 +195,67 @@ function getSearchResultByBookAndAuthor(book, author, page = 1, limit = 20, call
     })
 }
 
+function getTopThree(entries) {
+  let topThreeBooks = []
+  let i = 0
+  while (i < 3 && i < entries.length) {
+    let book = {
+      title: entries[i].title,
+      covers: entries[i].covers,
+      key: entries[i].key
+    }
+    topThreeBooks.push(book)
+    ++i
+  }
+  return topThreeBooks
+}
+
+async function recommendBooksByAuthor(authorKey, callback) {
+  let topThreeBooks = null
+  fetch(`https://openlibrary.org/authors/${authorKey}/works.json`)
+  .then((res) => res.json())
+  .then((json) => {
+      topThreeBooks = getTopThree(json['entries']);
+      callback(topThreeBooks)
+    }
+  );
+}
+
+function extractBookDetails(json) {
+  let book = {
+    title: json.title,
+    description: json.description,
+    covers: json.covers,
+    first_publish_date: json.first_publish_date,
+    subjects: json.subjects,
+    key: json.key,
+    authorKey: json.authors[0].author.key
+  }
+  return book
+}
+
+async function getBookDetails(key, callback) {
+  let threeAuthor = null
+  let threeSubject = null
+  let book_ = null
+  fetch(`https://openlibrary.org/${key}.json`)
+  .then((res) => res.json())
+  .then(async (json) => {
+      book_ = extractBookDetails(json);
+      
+      recommendBooksByAuthor(book_.authorKey.slice(9), (out) => {
+        threeAuthor = out;
+        callback(book_, threeAuthor)
+      })
+    }
+  );
+}
+
+getBookDetails('/works/OL27517W', (element1, element2) => {
+  console.log(element1)
+  console.log(element2)
+})
+
 export {
   ISBNApi,
   getThumbnailURL,
@@ -222,4 +267,8 @@ export {
   getSearchResultByAuthor,
   getSearchResultByBook,
   getSearchResultByBookAndAuthor,
+  getBookDetails,
+  getTopThree,
+  extractBookDetails,
+  recommendBooksByAuthor
 }
