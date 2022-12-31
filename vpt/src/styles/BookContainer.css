@@ -1,4 +1,5 @@
 .book-container {
+  margin-top: calc(var(--nav-bar-heright) + 20px);
   width: 85vw;
   height: 100%;
   display: flex;

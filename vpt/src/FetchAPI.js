@@ -96,7 +96,6 @@ function countCommonSubsequence(text1, text2) {
 }
 
 function toAddOrNot(searchWord, query) {
-  return true
   var text1 = searchWord.toLowerCase()
   var text2 = query.toLowerCase()
   var matchCount = countCommonSubsequence(text1, text2)
@@ -176,17 +175,17 @@ function getSearchResultByAuthor(author, page = 1) {
     })
 }
 
-function getSearchResultByBookAndAuthor(book, author, page = 1, callback) {
+function getSearchResultByBookAndAuthor(book, author, page = 1, limit = 20, callback) {
   fetch(
     `https://openlibrary.org/search.json?q=${book.replace(
       /\s+/g,
       "+"
-    )}&author=${author.replace(/\s+/, "+")}&page=${page}`
+    )}&author=${author.replace(/\s+/, "+")}&page=${page}&limit=${limit}`
   )
     .then((res) => res.json())
     .then((json) => {
       var return_json = {}
-      return_json["num_pages"] = Math.ceil(json.numFound / 100)
+      return_json["num_pages"] = Math.ceil(json.numFound / limit)
       return_json["result"] = []
       for (var doc of json.docs) {
         if (
@@ -201,6 +200,8 @@ function getSearchResultByBookAndAuthor(book, author, page = 1, callback) {
               first_edition: doc.first_publish_year,
               authors: doc.author_name,
               imageURL: imgURL,
+              // isbn: doc["isbn"],
+              key: doc.key
             })
           })
         }

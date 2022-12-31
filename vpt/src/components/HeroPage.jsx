@@ -5,12 +5,19 @@ import BookContainer from "./BookContainer"
 import Footer from "./Footer"
 
 const HeroPage = () => {
-  const [query, setQuery] = useState("shakespeare")
+  const [limit, setLimit] = useState(25)
+  const [query, setQuery] = useState("")
+  const [isFirstTime, setIsFirstTime] = useState(true)
 
   return (
     <section className="hero-section">
-      <Navbar func={setQuery} />
-      <BookContainer query={query} />
+      <Navbar
+        func={setQuery}
+        setIsFirstTime={setIsFirstTime}
+        setLimit={setLimit}
+        limit={limit}
+      />
+      <BookContainer query={query} isFirstTime={isFirstTime} limit={limit} />
     </section>
   )
 }

@@ -16,3 +16,28 @@ body {
 body::-webkit-scrollbar {
   width: 5px;
 }
+
+.loading {
+  border-radius: 2rem;
+}
+.loading-parent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loading-parent i {
+  font-size: 20px;
+}
+
+.circle {
+  height: 20vw;
+  width: 20vw;
+  border-radius: 50%;
+}
