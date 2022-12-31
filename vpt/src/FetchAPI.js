@@ -125,6 +125,7 @@ function getSearchResultByBook(book, page = 1) {
             title: doc.title,
             first_edition: doc.first_publish_error,
             authors: doc.author_name,
+            key: doc.key,
             imgURL: getValidImage(doc.isbn),
           })
         }
@@ -151,6 +152,7 @@ function getSearchResultByAuthor(author, page = 1) {
             title: doc.title,
             first_edition: doc.first_publish_error,
             authors: doc.author_name,
+            key: doc.key,
             imageURL: getValidImage(doc.isbn),
           })
         }
@@ -184,7 +186,6 @@ function getSearchResultByBookAndAuthor(book, author, page = 1, limit = 20, call
               first_edition: doc.first_publish_year,
               authors: doc.author_name,
               imageURL: imgURL,
-              // isbn: doc["isbn"],
               key: doc.key
             })
           })
