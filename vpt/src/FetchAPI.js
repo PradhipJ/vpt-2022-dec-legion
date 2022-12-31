@@ -161,7 +161,13 @@ function getSearchResultByAuthor(author, page = 1) {
     })
 }
 
-function getSearchResultByBookAndAuthor(book, author, page = 1, limit = 20, callback) {
+function getSearchResultByBookAndAuthor(
+  book,
+  author,
+  page = 1,
+  limit = 20,
+  callback
+) {
   fetch(
     `https://openlibrary.org/search.json?q=${book.replace(
       /\s+/g,
@@ -186,7 +192,7 @@ function getSearchResultByBookAndAuthor(book, author, page = 1, limit = 20, call
               first_edition: doc.first_publish_year,
               authors: doc.author_name,
               imageURL: imgURL,
-              key: doc.key
+              key: doc.key,
             })
           })
         }
@@ -203,7 +209,7 @@ function getTopThree(entries) {
     let book = {
       title: entries[i].title,
       covers: entries[i].covers,
-      key: entries[i].key
+      key: entries[i].key,
     }
     topThreeBooks.push(book)
     ++i
@@ -214,23 +220,22 @@ function getTopThree(entries) {
 async function recommendBooksByAuthor(authorKey, callback) {
   let topThreeBooks = null
   fetch(`https://openlibrary.org/authors/${authorKey}/works.json`)
-  .then((res) => res.json())
-  .then((json) => {
-      topThreeBooks = getTopThree(json['entries']);
+    .then((res) => res.json())
+    .then((json) => {
+      topThreeBooks = getTopThree(json["entries"])
       callback(topThreeBooks)
-    }
-  );
+    })
 }
 
 function extractBookDetails(json) {
   let book = {
     title: json.title,
-    description: json.description,
+    description: json["description"],
     covers: json.covers,
     first_publish_date: json.first_publish_date,
     subjects: json.subjects,
     key: json.key,
-    authorKey: json.authors[0].author.key
+    authorKey: json.authors[0].author.key,
   }
   return book
 }
@@ -239,23 +244,17 @@ async function getBookDetails(key, callback) {
   let threeAuthor = null
   let threeSubject = null
   let book_ = null
-  fetch(`https://openlibrary.org/${key}.json`)
-  .then((res) => res.json())
-  .then(async (json) => {
-      book_ = extractBookDetails(json);
-      
+  fetch(`https://openlibrary.org${key}.json`)
+    .then((res) => res.json())
+    .then(async (json) => {
+      book_ = extractBookDetails(json)
+
       recommendBooksByAuthor(book_.authorKey.slice(9), (out) => {
-        threeAuthor = out;
+        threeAuthor = out
         callback(book_, threeAuthor)
       })
-    }
-  );
+    })
 }
-
-getBookDetails('/works/OL27517W', (element1, element2) => {
-  console.log(element1)
-  console.log(element2)
-})
 
 export {
   ISBNApi,
@@ -271,5 +270,5 @@ export {
   getBookDetails,
   getTopThree,
   extractBookDetails,
-  recommendBooksByAuthor
+  recommendBooksByAuthor,
 }

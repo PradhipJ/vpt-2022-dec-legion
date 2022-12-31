@@ -47,6 +47,7 @@ const BookContainer = ({ query, isFirstTime, limit, visible, setVisible }) => {
               title={res.title}
               author={res.authors.join(", ")}
               desc={"First Edition " + res.first_edition}
+              getKey={res.key}
             />
           ))}
       </div>

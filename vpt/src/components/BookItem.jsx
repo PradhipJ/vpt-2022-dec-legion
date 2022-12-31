@@ -1,9 +1,18 @@
 import { React, useState } from "react"
 import "../styles/BookItem.css"
 import DescriptionContainer from "./DescriptionContainer"
+import { getBookDetails } from "../FetchAPI"
 
-const BookItem = ({ imgSrc, title, author, desc }) => {
+const BookItem = ({ imgSrc, title, author, desc, getKey }) => {
   const [show, setShow] = useState(false)
+  const [json, setJson] = useState({})
+
+  console.log(getKey)
+
+  getBookDetails(getKey, async (element1, element2) => {
+    console.log(element1, element2[0])
+    setJson({ element1, element2 })
+  })
 
   return (
     <>
@@ -15,7 +24,12 @@ const BookItem = ({ imgSrc, title, author, desc }) => {
           <p>{desc}</p>
         </div>
       </div>
-      {show && <DescriptionContainer />}
+      {show && (
+        <DescriptionContainer
+          desc={json.element1}
+          recommendation={json.element2}
+        />
+      )}
     </>
   )
 }

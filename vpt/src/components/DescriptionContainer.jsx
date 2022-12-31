@@ -1,13 +1,10 @@
 import React from "react"
 import "../styles/DescriptionContainer.css"
 
-const DescriptionContainer = ({ data }) => {
+const DescriptionContainer = ({ desc, recommendation }) => {
   return (
     <div className="description-container">
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
-      <h1>Test</h1>
+      <p>{desc}</p>
     </div>
   )
 }
