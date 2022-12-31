@@ -1,0 +1,22 @@
+.hero-section {
+  background-color: var(--light);
+  width: 100vw;
+  height: 100vh;
+  gap: 2rem;
+  /* background: url(../assets/blurry-gradient.svg);
+  background-repeat: no-repeat;
+  aspect-ratio: 960/540;
+  background-size: cover; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.scroll-view-container {
+  width: 100vw;
+  gap: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

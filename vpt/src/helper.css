@@ -1,0 +1,10 @@
+:root {
+  --v-light: #fefcf3;
+  --light: #f5ebe0;
+  --blue: #a6e3e9;
+  --deep-blue: #f0dbdb;
+  --dark-blue: #dba39a;
+  --nav-bar-heright: 100px;
+  --scroll-view-height: 300px;
+  --shadow: rgba(0, 0, 0, 0.408);
+}

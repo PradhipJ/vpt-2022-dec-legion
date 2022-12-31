@@ -1,0 +1,5 @@
+.scroll-view {
+  width: 100vw;
+  height: var(--scroll-view-height);
+  background-color: var(--v-light);
+}
