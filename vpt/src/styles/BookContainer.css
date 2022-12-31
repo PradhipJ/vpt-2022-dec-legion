@@ -6,8 +6,8 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  border-top-left-radius: 2rem;
-  border-bottom-left-radius: 2rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   margin-bottom: 2rem;
   padding: 3rem 1rem;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.408);

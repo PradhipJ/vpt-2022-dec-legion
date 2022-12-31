@@ -5,20 +5,22 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   gap: 2rem;
   transition: all 0.3s ease;
   box-shadow: 1px 1px 10px 1px var(--shadow);
 }
 
 .book-item:hover {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#dba39a+0,fefcf3+100 */
+  background: #dba39a70;
   transform: scale(1.0125);
   box-shadow: 5px 5px 10px 5px var(--shadow);
 }
 
 .book-item:hover .book-image {
   transform: scale(1.1);
-  box-shadow: 5px 5px 10px 5px #e97777c4;
+  box-shadow: 5px 5px 10px 5px #e9777757;
 }
 .book-item:hover .desc-container {
   transform: translateX(+7%);
@@ -26,9 +28,14 @@
 
 .book-image {
   object-fit: contain;
-  border-radius: 1rem;
   height: 80%;
   transition: all 0.3s ease;
+}
+.book-image:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  background-image: url(../assets/testImg.jpg);
 }
 
 .desc-container {
@@ -46,8 +53,12 @@
 }
 
 .book-title {
+  width: 50vw;
   font-size: 24px;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .book-author {
   font-size: 18px;
